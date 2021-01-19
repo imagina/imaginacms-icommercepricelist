@@ -3,7 +3,7 @@
 namespace Modules\Icommercepricelist\Http\Controllers\Api;
 
 // Requests & Response
-use Modules\Icommerce\Http\Requests\ProductListRequest;
+use Modules\Icommercepricelist\Http\Requests\ProductListRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
