@@ -6,9 +6,9 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 
 use Modules\Icommercepricelist\Events\Handlers\UpdatePriceProductLists;
 use Modules\Icommercepricelist\Events\Handlers\RefreshProductPriceLists;
-use Modules\Icommercepricelist\Events\ProductListWasCreated;
-use Modules\Icommercepricelist\Events\ProductWasCreated;
-use Modules\Icommercepricelist\Events\ProductWasUpdated;
+use Modules\Icommerce\Events\ProductListWasCreated;
+use Modules\Icommerce\Events\ProductWasCreated;
+use Modules\Icommerce\Events\ProductWasUpdated;
 
 class EventServiceProvider extends ServiceProvider
 {
