@@ -27,8 +27,7 @@ class PriceList extends Model
     {
         return $this->belongsToMany(Product::class, 'icommercepricelist__product_lists')
             ->withPivot('id', 'price')
-            ->withTimestamps()
-            ->using(ProductList::class);
+            ->withTimestamps();
     }
 
     public function getEntityAttribute()
