@@ -8,7 +8,7 @@
     <div class="container">
         <div class="card-columns">
             @foreach($categories as $category)
-                @if(count($category->products) > 0)
+                @if(count($category->ownProducts->where('status',1)->where('quantity','>',0)) > 0)
                 <div class="card border-0">
                     <div class="card-body p-1">
                         <div class="table-responsive">
@@ -21,7 +21,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($category->products as $product)
+                                @foreach($category->ownProducts->where('status',1)->where('quantity','>',0) as $product)
                                     <tr>
                                         <td>
                                             <a class="text-primary" href="{{ $product->url }}">{{ $product->name }}</a>
