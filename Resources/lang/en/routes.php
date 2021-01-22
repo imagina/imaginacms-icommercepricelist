@@ -1,6 +1,6 @@
 <?php
 return [
     'pricelists' => [
-        'index' => 'tienda/lista-de-precios'
+        'index' => 'store/price-lists'
     ]
 ];
