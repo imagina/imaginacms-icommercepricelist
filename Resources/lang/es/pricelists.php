@@ -6,7 +6,7 @@ return [
     'edit resource' => 'Editar Listas de precios',
     'destroy resource' => 'Eliminar Listas de precios',
     'title' => [
-        'pricelists' => 'Listas de precios',
+        'pricelists' => 'Lista de precios',
         'create pricelist' => 'Crear una Lista de precios',
         'edit pricelist' => 'Editar una Lista de precios',
     ],

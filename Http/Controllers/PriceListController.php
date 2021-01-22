@@ -4,15 +4,15 @@ namespace Modules\Icommercepricelist\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Modules\Icommercepricelist\Repositories\PriceListRepository;
+use Modules\Icommerce\Repositories\CategoryRepository;
 use Modules\Ihelpers\Http\Controllers\Api\BaseApiController;
 
 class PriceListController extends BaseApiController
 {
-    public $priceList;
-    public function __construct(PriceListRepository $priceList)
+    public $category;
+    public function __construct(CategoryRepository $category)
     {
-        $this->priceList = $priceList;
+        $this->category = $category;
     }
 
     /**
@@ -23,7 +23,7 @@ class PriceListController extends BaseApiController
     {
         $params = $this->getParamsRequest($request, ['include' => ['products']]);
 
-        $priceLists = $this->priceList->getItemsBy($params);
-        return view('icommercepricelist::frontend.index', compact('priceLists'));
+        $categories = $this->category->getItemsBy($params);
+        return view('icommercepricelist::frontend.index', compact('categories'));
     }
 }
