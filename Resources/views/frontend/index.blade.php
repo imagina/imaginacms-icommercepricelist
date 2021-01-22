@@ -1,10 +1,17 @@
-@extends('layouts.master')
-
-@section('title')
-    {{ trans('icommercepricelist::pricelists.title.pricelists') }} | @parent
+@extends('iprofile::frontend.layouts.master')
+@section('profileBreadcrumb')
+    <x-isite::breadcrumb>
+        <li class="breadcrumb-item">
+            <a href="{{ url('/') }}">{{ trans('core::core.breadcrumb.home') }}</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ trans('icommercepricelist::pricelists.title.pricelists') }}</li>
+    </x-isite::breadcrumb>
 @endsection
 
-@section('content')
+@section('profileTitle')
+    {{ trans('icommercepricelist::pricelists.title.pricelists') }}
+@endsection
+@section('profileContent')
     <div class="container">
         <div class="card-columns">
             @foreach($categories as $category)
@@ -40,4 +47,8 @@
             @endforeach
         </div>
     </div>
+@stop
+
+@section('profileExtraFooter')
+    @include('icommerce::frontend.partials.extra-footer')
 @endsection
