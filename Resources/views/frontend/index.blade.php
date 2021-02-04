@@ -13,9 +13,7 @@
 @endsection
 @section('profileContent')
     <div class="w-100 text-right">
-        <button class="btn btn-primary" onclick="PrintElement('#priceListContent');">
-            <i class="fa fa-file-pdf-o"></i> Descargar
-        </button>
+        <x-isite::print-button container="#priceListContent" icon="fa fa-file-pdf-o" text="{{ trans('icommercepricelist::pricelists.button.download') }}" />
     </div>
     <div class="w-100 p-0" id="priceListContent">
         <div class="text-center py-1">
@@ -90,24 +88,4 @@
 
 @section('profileExtraFooter')
     @include('icommerce::frontend.partials.extra-footer')
-    <script type="text/javascript">
-      function PrintElement(element) {
-        var data = $(element).html();
-        var myWindow = window.open('', '{{ trans('icommercepricelist::pricelists.title.pricelists') }}');
-        myWindow.document.write('<html><head><title>{{ trans('icommercepricelist::pricelists.title.pricelists') }}</title>');
-        myWindow.document.write('{!! Theme::style('css/main.css?v='.config('app.version')) !!}');
-        myWindow.document.write('{!! Theme::style('css/secondary.css?v='.config('app.version')) !!}');
-        myWindow.document.write('</head><body >');
-        myWindow.document.write(data);
-        myWindow.document.write('</body></html>');
-        myWindow.document.close(); // necessary for IE >= 10
-
-        myWindow.onload=function(){ // necessary if the div contain images
-
-          myWindow.focus(); // necessary for IE >= 10
-          myWindow.print();
-          myWindow.close();
-        };
-      }
-    </script>
 @endsection

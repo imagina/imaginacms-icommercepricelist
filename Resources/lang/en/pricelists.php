@@ -12,6 +12,7 @@ return [
     ],
     'button' => [
         'create pricelist' => 'Crear una Lista de precios',
+        'download' => 'Download'
     ],
     'table' => [
     ],
