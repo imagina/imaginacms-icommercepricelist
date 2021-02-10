@@ -5,4 +5,9 @@
   table{
     font-size: 0.75rem;
   }
+  @media screen {
+    .img-print {
+      height: 0!important;
+    }
+  }
 }

@@ -13,11 +13,13 @@
 @endsection
 @section('profileContent')
     <div class="w-100 text-right">
-        <x-isite::print-button container="#priceListContent" icon="fa fa-file-pdf-o" text="{{ trans('icommercepricelist::pricelists.button.download') }}" />
+        <x-isite::print-button containerId="priceListContent" icon="fa fa-file-pdf-o" text="{{ trans('icommercepricelist::pricelists.button.download') }}" />
     </div>
     <div class="w-100 p-0" id="priceListContent">
-        <div class="text-center py-1">
-            <x-isite::logo name="logo1" />
+        <div class="text-center">
+            <x-isite::logo name="logo1" imgClasses="img-print" />
+        </div>
+        <div class="text-center py-1 d-none d-print-block">
             <div class="py-2">
                 <div class="d-inline-flex px-1">
                     <x-isite::contact.addresses />
@@ -66,8 +68,10 @@
                 @endif
             @endforeach
         </div>
-        <div class="text-center py-1">
-            <x-isite::logo name="logo1" />
+        <div class="text-center">
+            <x-isite::logo name="logo1" imgClasses="img-print" />
+        </div>
+        <div class="text-center py-1 d-none d-print-block">
             <div class="py-2">
                 <div class="d-inline-flex px-1">
                     <x-isite::contact.addresses />
