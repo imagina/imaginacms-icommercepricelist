@@ -1,9 +1,6 @@
 @extends('iprofile::frontend.layouts.master')
 @section('profileBreadcrumb')
     <x-isite::breadcrumb>
-        <li class="breadcrumb-item">
-            <a href="{{ url('/') }}">{{ trans('core::core.breadcrumb.home') }}</a>
-        </li>
         <li class="breadcrumb-item active" aria-current="page">{{ trans('icommercepricelist::pricelists.title.pricelists') }}</li>
     </x-isite::breadcrumb>
 @endsection
@@ -44,8 +41,8 @@
                             <table class="table table-sm table-hover m-0">
                                 <thead>
                                     <tr>
-                                        <td colspan="2" class="text-center bg-primary text-white p-0">
-                                            {{ $category->title }}
+                                        <td colspan="2" class="text-center text-white p-0">
+                                            <div class="bg-primary w-100">{{ $category->title }}</div>
                                         </td>
                                     </tr>
                                 </thead>

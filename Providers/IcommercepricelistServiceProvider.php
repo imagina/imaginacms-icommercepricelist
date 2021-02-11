@@ -2,7 +2,9 @@
 
 namespace Modules\Icommercepricelist\Providers;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Events\LoadingBackendTranslations;
 use Modules\Core\Traits\CanPublishConfiguration;
 
 class IcommercepricelistServiceProvider extends ServiceProvider
@@ -15,7 +17,6 @@ class IcommercepricelistServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path('Icommercepricelist', 'Database/Migrations'));
@@ -28,6 +29,7 @@ class IcommercepricelistServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerTranslations();
         $this->app->register(RouteServiceProvider::class);
         $this->registerBindings();
     }
@@ -98,13 +100,10 @@ class IcommercepricelistServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('lang/modules/icommercepricelist');
-
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'icommercepricelist');
-        } else {
-            $this->loadTranslationsFrom(module_path('Icommercepricelist', 'Resources/lang'), 'icommercepricelist');
-        }
+        $this->app['events']->listen(LoadingBackendTranslations::class, function (LoadingBackendTranslations $event) {
+            $event->load('pricelists', Arr::dot(trans('icommercepricelist::pricelists')));
+            $event->load('routes', Arr::dot(trans('icommercepricelist::routes')));
+        });
     }
 
     /**
