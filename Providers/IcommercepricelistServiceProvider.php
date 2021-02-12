@@ -29,9 +29,8 @@ class IcommercepricelistServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerTranslations();
-        $this->app->register(RouteServiceProvider::class);
         $this->registerBindings();
+        $this->registerTranslations();
     }
 
     /**
