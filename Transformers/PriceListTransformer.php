@@ -14,7 +14,7 @@ class PriceListTransformer extends JsonResource
             'name' => $this->name ?? '',
             'status' => $this->status ?? '0',
             'criteria' => $this->when($this->criteria,$this->criteria),
-            'value' => $this->when($this->value, $this->value),
+            'value' => $this->value ?? '0',
             'operationPrefix' => $this->when($this->operation_prefix, $this->operation_prefix),
             'price' => $this->when(isset($this->pivot), $this->pivot->price ?? 0),
             'relatedId' => $this->when($this->related_id, $this->related_id),
