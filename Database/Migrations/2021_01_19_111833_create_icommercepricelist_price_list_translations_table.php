@@ -20,8 +20,11 @@ class CreateIcommercepricelistPriceListTranslationsTable extends Migration
 
             $table->integer('price_list_id')->unsigned();
             $table->string('locale')->index();
-            $table->unique(['price_list_id', 'locale'], 'price_list_id_locale_unique');
-            $table->foreign('price_list_id', 'price_list_id_trans')->references('id')->on('icommerce__price_lists')->onDelete('cascade');
+            
+            $table->unique(['price_list_id', 'locale'], 'price_list_id_unique');
+
+            $table->foreign('price_list_id','price_list_id_trans')->references('id')->on('icommercepricelist__price_lists')->onDelete('cascade');
+
         });
     }
 
