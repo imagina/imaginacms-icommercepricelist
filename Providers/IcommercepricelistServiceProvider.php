@@ -19,7 +19,7 @@ class IcommercepricelistServiceProvider extends ServiceProvider
     {
         $this->registerConfig();
         $this->registerViews();
-        $this->loadMigrationsFrom(module_path('Icommercepricelist', 'Database/Migrations'));
+        //$this->loadMigrationsFrom(module_path('Icommercepricelist', 'Database/Migrations'));
     }
 
     /**
