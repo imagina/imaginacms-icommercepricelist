@@ -16,6 +16,7 @@ class IcommercepricelistDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+        $this->call(IcommercepricelistModuleTableSeeder::class);
         // $this->call("OthersTableSeeder");
     }
 }
