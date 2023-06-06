@@ -56,7 +56,7 @@ class EloquentPriceListRepository extends EloquentBaseRepository implements Pric
         }
     }
 
-    public function getItem($criteria, $params)
+    public function getItem($criteria, $params = false)
     {
         // INITIALIZE QUERY
         $query = $this->model->query();
@@ -84,7 +84,7 @@ class EloquentPriceListRepository extends EloquentBaseRepository implements Pric
         return $priceList;
     }
 
-    public function updateBy($criteria, $data, $params)
+    public function updateBy($criteria, $data, $params = false)
     {
 
         // INITIALIZE QUERY
@@ -109,7 +109,7 @@ class EloquentPriceListRepository extends EloquentBaseRepository implements Pric
         return $model;
     }
 
-    public function deleteBy($criteria, $params)
+    public function deleteBy($criteria, $params = false)
     {
         // INITIALIZE QUERY
         $query = $this->model->query();
