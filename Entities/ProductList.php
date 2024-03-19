@@ -17,11 +17,11 @@ class ProductList extends Model
     ];
 
     public function product(){
-        $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class);
     }
 
     public function priceList(){
-        $this->belongsTo(PriceList::class);
+        return $this->belongsTo(PriceList::class);
     }
 
 }
