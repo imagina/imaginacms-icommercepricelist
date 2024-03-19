@@ -4,6 +4,7 @@ namespace Modules\Icommercepricelist\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Modules\Icommerce\Transformers\ProductTransformer;
+use Modules\Core\Icrud\Transformers\CrudResource;
 
 class PriceListTransformer extends JsonResource
 {
@@ -18,7 +19,8 @@ class PriceListTransformer extends JsonResource
             'operationPrefix' => $this->when($this->operation_prefix, $this->operation_prefix),
             'price' => $this->when(isset($this->pivot), $this->pivot->price ?? 0),
             'relatedId' => $this->when($this->related_id, $this->related_id),
-            //'entity' => app($this->related_entity)->find($this->related_id),
+            'relatedEntity' => $this->when($this->related_entity, $this->related_entity),
+            'related' => new CrudResource($this->whenLoaded('related')),
             'products' => ProductTransformer::collection($this->whenLoaded('products')),
             'createdAt' => $this->when($this->created_at, $this->created_at),
             'updatedAt' => $this->when($this->updated_at, $this->updated_at),
