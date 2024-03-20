@@ -15,6 +15,7 @@ use Modules\Icommercepricelist\Transformers\ProductListTransformer;
 
 // Repositories
 use Modules\Icommercepricelist\Repositories\ProductListRepository;
+use Modules\Icommercepricelist\Http\Requests\UpdatePriceListRequest;
 
 class ProductListApiController extends BaseApiController
 {

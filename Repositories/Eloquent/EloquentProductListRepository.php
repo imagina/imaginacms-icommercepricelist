@@ -72,7 +72,7 @@ class EloquentProductListRepository extends EloquentBaseRepository implements Pr
   {
 
     $productList = $this->model->create($data);
-    event(new \Modules\Icommerce\Events\ProductListWasCreated($productList));
+    event(new \Modules\Icommercepricelist\Events\ProductListWasCreated($productList));
 
     return $productList;
   }
@@ -99,7 +99,7 @@ class EloquentProductListRepository extends EloquentBaseRepository implements Pr
     if ($model) {
       $model->update($data);
     }
-    event(new \Modules\Icommerce\Events\ProductListWasCreated($model->fresh()));
+    event(new \Modules\Icommercepricelist\Events\ProductListWasCreated($model->fresh()));
 
     return $model;
   }
