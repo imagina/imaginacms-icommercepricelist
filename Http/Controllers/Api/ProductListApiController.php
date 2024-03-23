@@ -217,17 +217,17 @@ class ProductListApiController extends BaseApiController
 
         // Update Product List
         if(is_null($attributes["id"])) {
-          $criteria = $product->id;
-
-          $params = [
-            "filter" => [
-              "field" => "product_id",
-              'price_list_id' => $priceList->id,
-            ]
-          ];
+          $params = (object)([
+            "take" => 1,
+            "include" => [],
+            "filter" => (object)([
+              "productId" => $product->id,
+              "priceListId" => $priceList->id,
+            ])
+          ]);
 
           // Verify if exist productList
-          $checkProduct = $this->productList->getItem($criteria, $params);
+          $checkProduct = $this->productList->getItemsBy($params)->first();
 
           //Create the product List
           if(!isset($checkProduct)) $msg = $this->productList->create($data);
@@ -236,7 +236,12 @@ class ProductListApiController extends BaseApiController
         }
 
         //Update the product List
-        if(isset($attributes["id"])) $msg = $this->productList->updateBy($criteria, $data,$params);
+        if(isset($attributes["id"])) {
+          $params = (object)([
+            "filter" => (object)([])
+          ]);
+          $msg = $this->productList->updateBy($attributes["id"], $data, $params);
+        }
 
         //Response
         $response = ["data" => $msg];
