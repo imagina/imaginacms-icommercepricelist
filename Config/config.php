@@ -10,10 +10,11 @@ return [
   'synchronizable' => [
     'entities' => [
       'icommercepricelist_syncProductlist' => [
-        'base_template_id' => '1OOyW4ySI7RJMdS9fgcJWOfnPpi41FRFq2WmMhcOQonE',
+        'base_template_id' => '1OnBxmLWhdaQavewwAf-UlnvaWN6rI-seCnCrPOagnI0',
         'apiRoute' => '/icommercepricelist/v3/product-lists',
         "supportedActions" =>  ["import", "export"],
         'sheetName' => 'Icommerce ProductList',
+        'include' => 'priceList',
         'customColumns' => true,
         'dependencies' => [
           'icommercepricelist_syncPricelists' => [

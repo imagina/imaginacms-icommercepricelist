@@ -1,5 +1,9 @@
 <?php
 return [
+  'sidebar' => [
+    'productList' => "Precios",
+    'priceLists' => "Listas"
+  ],
   'title' => [],
   'table' => [
   ],
