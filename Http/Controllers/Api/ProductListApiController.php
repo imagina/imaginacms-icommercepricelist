@@ -3,8 +3,7 @@
 namespace Modules\Icommercepricelist\Http\Controllers\Api;
 
 // Requests & Response
-use Modules\Icommerce\Entities\Product;
-use Modules\Icommercepricelist\Entities\PriceList;
+use Modules\Icommercepricelist\Entities\ProductList;
 use Modules\Icommercepricelist\Http\Requests\ProductListRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,6 +17,7 @@ use Modules\Icommercepricelist\Transformers\ProductListTransformer;
 // Repositories
 use Modules\Icommercepricelist\Repositories\ProductListRepository;
 use Modules\Icommercepricelist\Http\Requests\UpdatePriceListRequest;
+use Modules\Icommercepricelist\Http\Requests\SyncProductListRequest;
 
 class ProductListApiController extends BaseApiController
 {
@@ -180,75 +180,45 @@ class ProductListApiController extends BaseApiController
       try {
         $attributes = $request->input('attributes') ?? [];//Get data
 
-        if(!isset($attributes["product_id"]) || !isset($attributes["price_list_id"]))
-          return response()->json(["errors" => "Miss fields: ProductId or PriceList"], 404);
+        // Validate if exist ProductId and PriceListId
+        $this->validateRequestApi(new SyncProductListRequest($attributes));
 
-        $value = $attributes["price"] ?? 0;
+        //If Get a id, get
+        $criteria = $attributes["id"]
+          ? ['id' => $attributes["id"]]
+          : ['product_id' => $attributes["product_id"], 'price_list_id' => $attributes["price_list_id"]];
 
-        //Get Product
-        $product = Product::Where('id', $attributes["product_id"])->first();
+        try {
+          //Update or Create the Relation
+          $msg = ProductList::updateOrCreate(
+            $criteria,
+            [
+              'product_id' => $attributes["product_id"],
+              'price_list_id' => $attributes["price_list_id"],
+              'price' => $attributes["price"] ?? 0
+            ]
+          );
+        } catch (\Exception $e) {
+          // Get the SQL error message
+          $msg = $e->getMessage();
+          $status = $this->getStatusError($e->getCode());
 
-        //Return if product not found
-        if(!isset($product)) return response()->json(["errors" => "Producto no encontrado"], 404);
-
-
-        //Get priceList
-        $priceList = PriceList::where('id', $attributes["price_list_id"])->first();
-
-        //Return if priceList not found
-        if(!isset($priceList)) return response()->json(["errors" => "Lista de precio no encontrada"], 404);
-
-        //Make percentage opertion
-        if($priceList->criteria !== 'fixed') {
-          $price = $product->price;
-          $valuePriceList = ($price * ($priceList->value / 100));
-          if ($priceList->operation_prefix == '-') $value = $price - $valuePriceList;
-          else $value = $price + $valuePriceList;
-
+          // Check if the error message contains the string "SQLSTATE"
+          if (strpos($msg, "SQLSTATE") !== false) {
+            // Extract the column name causing the error
+            preg_match("/CONSTRAINT `[^`]+` FOREIGN KEY \(`([^`]+)`\) REFERENCES/", $msg, $matches);
+            $columnName = $matches[1] ?? 'unknown';
+            // Return only the name of the failed field
+            $msg = ("Failed to find: $columnName");
+          }
+          $response = ["errors" => $msg];
         }
-
-        $data = [
-          'product_id' => $product->id,
-          'price_list_id' => $priceList->id,
-          'price' => $value
-        ];
-
-        $checkProduct = null;
-
-        // Update Product List
-        if(is_null($attributes["id"])) {
-          $params = (object)([
-            "take" => 1,
-            "include" => [],
-            "filter" => (object)([
-              "productId" => $product->id,
-              "priceListId" => $priceList->id,
-            ])
-          ]);
-
-          // Verify if exist productList
-          $checkProduct = $this->productList->getItemsBy($params)->first();
-
-          //Create the product List
-          if(!isset($checkProduct)) $msg = $this->productList->create($data);
-          else $attributes["id"] = $checkProduct->id;
-
-        }
-
-        //Update the product List
-        if(isset($attributes["id"])) {
-          $params = (object)([
-            "filter" => (object)([])
-          ]);
-          $msg = $this->productList->updateBy($attributes["id"], $data, $params);
-        }
-
         //Response
-        $response = ["data" => $msg];
+        $response = $response ?? ["data" => $msg];
         \DB::commit();//Commit to DataBase
       } catch (\Exception $e) {
         \DB::rollback();//Rollback to Data Base
-        \Log::error($e->getMessage(), $e->getFile(), $e->getLine());
+        \Log::error("File: ". $e->getFile() ."Line: ". $e->getLine() ."Message: ". $e->getMessage());
         $status = $this->getStatusError($e->getCode());
         $response = ["errors" => $e->getMessage()];
       }
