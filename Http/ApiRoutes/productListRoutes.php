@@ -23,5 +23,8 @@ $router->group(['prefix' => '/product-lists'/*,'middleware' => ['auth:api']*/], 
     'as' => $locale . 'api.icommercepricelist.product-lists.show',
     'uses' => 'ProductListApiController@show',
   ]);
-
+  $router->post('/sync',[
+    'as'=> $locale . 'api.icommercepricelist.product-lists.sync',
+    'uses'=> 'ProductListApiController@syncProductsList'
+  ]);
 });
