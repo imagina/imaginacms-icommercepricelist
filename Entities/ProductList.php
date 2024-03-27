@@ -24,4 +24,20 @@ class ProductList extends Model
         return $this->belongsTo(PriceList::class);
     }
 
+  public function getPriceAttribute($value)
+  {
+    $price = $value;
+
+    if ($this->relationLoaded('product') && $this->relationLoaded('priceList')) {
+      $priceList = $this->priceList;
+      $productPrice = $this->product->price;
+
+      if($priceList->criteria !== 'fixed') {
+        $price = icommercepricelist_calculatePriceByPriceList($priceList, $productPrice);
+      }
+    }
+
+    return $price;
+  }
+
 }

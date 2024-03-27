@@ -11,6 +11,8 @@
         "Modules\\Icommercepricelist\\Providers\\RouteServiceProvider"
     ],
     "aliases": {},
-    "files": [],
+    "files": [
+        "helpers.php"
+    ],
     "requires": []
 }
