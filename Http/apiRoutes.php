@@ -9,6 +9,7 @@ Route::prefix('/icommercepricelist/v3')->middleware('auth:api')->group(function 
     'module' => 'icommercepricelist',
     'prefix' => 'price-lists',
     'controller' => 'PriceListApiController',
+    'permission' => 'icommercepricelist.pricelists',
     'middleware' => [
       'create' => ['auth:api', 'auth-can:icommercepricelist.pricelists.create'],
       'update' => ['auth:api', 'auth-can:icommercepricelist.pricelists.edit'],
@@ -22,6 +23,7 @@ Route::prefix('/icommercepricelist/v3')->middleware('auth:api')->group(function 
     'module' => 'icommercepricelist',
     'prefix' => 'product-lists',
     'controller' => 'ProductListApiController',
+    'permission' => 'icommercepricelist.productlist',
     'middleware' => [
       'create' => ['auth:api', 'auth-can:icommercepricelist.productlist.create'],
       'update' => ['auth:api', 'auth-can:icommercepricelist.productlist.edit'],
