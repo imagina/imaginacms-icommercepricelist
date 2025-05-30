@@ -8,6 +8,7 @@ Route::prefix('/icommercepricelist/v3')->middleware('auth:api')->group(function 
   $router->apiCrud([
     'module' => 'icommercepricelist',
     'prefix' => 'price-lists',
+    'permission' => 'icommercepricelist.pricelists',
     'controller' => 'PriceListApiController',
     'permission' => 'icommercepricelist.pricelists',
     'middleware' => [
@@ -22,6 +23,7 @@ Route::prefix('/icommercepricelist/v3')->middleware('auth:api')->group(function 
   $router->apiCrud([
     'module' => 'icommercepricelist',
     'prefix' => 'product-lists',
+    'permission' => 'icommercepricelist.productlist',
     'controller' => 'ProductListApiController',
     'permission' => 'icommercepricelist.productlist',
     'middleware' => [
