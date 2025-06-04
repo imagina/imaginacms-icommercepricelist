@@ -6,7 +6,7 @@ use Astrotomic\Translatable\Translatable;
 use Modules\Core\Icrud\Entities\CrudModel;
 use Modules\Icommerce\Entities\Product;
 
-class PriceList extends Model
+class PriceList extends CrudModel
 {
     use Translatable;
 
